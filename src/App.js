@@ -1,24 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { Provider } from "react-redux";
+import store from "./store";
+import UserListView from "./UserListView";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  useParams,
+  useRouteMatch,
+  Routes,
+} from "react-router-dom";
+import { Topics } from "./Topics";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      {/* <UserListView /> */}
+      <Router>
+        <div>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/topics">Topics</Link>
+            </li>
+          </ul>
+
+          <hr />
+
+          <Routes>
+            <Route path="/" element={<UserListView />}></Route>
+            <Route path="/topics/*" element={<Topics />}></Route>
+          </Routes>
+        </div>
+      </Router>
+    </Provider>
   );
 }
 
